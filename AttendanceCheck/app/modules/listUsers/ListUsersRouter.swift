@@ -1,21 +1,17 @@
 //
-//  ContentView.swift
+//  ListUsersRouter.swift
 //  AttendanceCheck
 //
 //  Created by Gerardo Santillan Cruzado on 08/05/25.
 //
 
 import SwiftUI
+import SwiftData
 
-struct ContentView: View {
-    @Environment(\.modelContext) var modelContext
-    var body: some View {
+class ListUsersRouter {
+    static func goToListUser(modelContext: ModelContext) -> some View {
         let interactor = ListUserInteractor(modelContext: modelContext)
         let presenter = ListUserPresenter(interactor: interactor)
-        ListUsersView(presenter: presenter)
+        return ListUsersView(presenter: presenter)
     }
-}
-
-#Preview {
-    ContentView()
 }
