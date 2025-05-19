@@ -15,7 +15,7 @@ struct UserItemView: View {
         var body: some View {
             Capsule()
                 .fill(.red)
-                .frame(width: 8)
+                .frame(width: 5)
                 .padding(.leading, -15)
         }
     }
@@ -28,7 +28,7 @@ struct UserItemView: View {
         private struct EmptyImage: View {
             var body: some View {
                 ProgressView()
-                    .frame(width: 150, height: 100)
+                    .frame(width: 60, height: 60)
             }
         }
         
@@ -37,7 +37,7 @@ struct UserItemView: View {
                 Image(systemName: "person.crop.circle.badge.exclamationmark")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 150, height: 100)
+                    .frame(width: 60, height: 60)
                     .foregroundColor(.gray)
             }
         }
@@ -49,7 +49,7 @@ struct UserItemView: View {
                 image
                     .resizable()
                     .scaledToFill()
-                    .frame(width: 150)
+                    .frame(width: 60, height: 60)
                     .clipShape(RoundedRectangle(cornerRadius: 60))
                     .shadow(radius: 10)
             }
@@ -76,13 +76,14 @@ struct UserItemView: View {
         var user: User
         
         var body: some View {
-            VStack(alignment: .leading, spacing: 7) {
+            VStack(alignment: .leading) {
                 Text(user.name + " " + user.lastName)
+                    .font(.system(size: 14, weight: .bold))
                 Divider()
                 Text(user.email)
+                    .font(.system(size: 13))
                 Text(user.phone)
-                Divider()
-                Spacer()
+                    .font(.system(size: 13))
             }
         }
     }
@@ -93,15 +94,14 @@ struct UserItemView: View {
         
         var body: some View {
             HStack {
-                Button(ListUsersStrings.asissteceButtonTitle) {
+                Button {
                     hasAssistance.toggle()
+                } label: {
+                    Image(systemName: hasAssistance ? "checkmark.circle" : "circle")
+                        .foregroundColor(.green)
+                        .font(.system(size: 30, weight: .bold))
                 }
                 .buttonStyle(.borderless)
-                if hasAssistance {
-                    Image(systemName: "checkmark.circle")
-                        .foregroundColor(.green)
-                        .font(.system(size: 20, weight: .bold))
-                }
             }
         }
     }
@@ -112,16 +112,18 @@ struct UserItemView: View {
             StatusCapsule()
             
             ImageAsyncAvatar(clientEmail: user.email)
+                .padding(-10)
             
-            VStack(alignment: .leading, spacing: 7) {
+            VStack(alignment: .leading) {
                 
                 ClientInfo(user: user)
-                
-                AsissteceButton()
                 
             }
             .padding()
             
+            AsissteceButton()
+            
         }
+        .frame(height: 70)
     }
 }
