@@ -9,9 +9,10 @@ import SwiftUI
 import SwiftData
 
 class FormUserRouter {
-    static func goToFormUser(modelContext: ModelContext) -> some View {
+    static func goToFormUser(modelContext: ModelContext, delegate: ListUserPrsenterProtocol) -> some View {
         let interactor = FormUserInteractor(modelContext: modelContext)
         let presenter = FormUserPresenter(interactor: interactor)
+        presenter.delegate = delegate
         return FormUserView(presenter: presenter)
     }
 }

@@ -9,11 +9,13 @@ import SwiftData
 import SwiftUI
 
 protocol ListUserPrsenterProtocol {
-    func getUsers() -> [User]
-    func saveUser(_ user: User)
+    func reloadListUsers()
+    func showModalToggle()
 }
 
-class ListUserPresenter {
+class ListUserPresenter: ObservableObject {
+    @Published var users: [User] = []
+    @Published var showFormModal: Bool = false
     
     var interactor: ListUserInteractorProtocol
     
@@ -24,14 +26,16 @@ class ListUserPresenter {
 }
 
 extension ListUserPresenter: ListUserPrsenterProtocol {
-    func getUsers() -> [User] {
-        return try! interactor.fetchAll()
+    func showModalToggle() {
+        showFormModal.toggle()
     }
     
-    func saveUser(_ user: User) {
-        let newUser = User(name: "Gerardo", phone: "5529871231", email: "geraldosantillan@gmail.com")
-        interactor.insert(user: newUser)
+    func reloadListUsers() {
+        do {
+            users = try interactor.fetchAll()
+        } catch {
+            print("Error al obtener usuarios: \(error)")
+        }
     }
-    
     
 }

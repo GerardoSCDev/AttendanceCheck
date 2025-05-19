@@ -9,17 +9,98 @@ import SwiftUI
 
 struct FormUserView: View {
     
-    let presenter: FormUserPresenter
+    @ObservedObject var presenter: FormUserPresenter
     
     init(presenter: FormUserPresenter) {
         self.presenter = presenter
     }
     
     var body: some View {
-        Button {
-            presenter.saveUser(name: "Karen", email: "karen@gmail.com", phone: "5598123992")
-        } label: {
-            Text("Agregar usuario")
+        VStack {
+            Capsule()
+                .frame(width: 100, height: 4)
+                .foregroundStyle(.white)
+            Text("Formulario usuario")
+                .font(.title2)
+                .padding()
+            ScrollView {
+                VStack(spacing: 30) {
+                    ZStack {
+                        if presenter.photoImage == nil {
+                            CameraPreviewView(session: presenter.cameraManager.captureSession)
+                                .frame(width: 220, height: 220)
+                                .cornerRadius(20)
+                                .clipped()
+                                .shadow(radius: 5)
+                        }
+                        
+                        if let photo = presenter.bindingPhotoImage.wrappedValue {
+                            Image(uiImage: photo)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 220, height: 220)
+                                .cornerRadius(20)
+                                .clipped()
+                        }
+                        
+                        VStack {
+                            Spacer()
+                            if let _ = presenter.bindingPhotoImage.wrappedValue {
+                                Button {
+                                    presenter.resetTakePhoto()
+                                } label: {
+                                    Image(systemName: "arrow.trianglehead.2.clockwise.rotate.90.camera")
+                                        .font(.system(size: 30, weight: .bold))
+                                }.padding(10)
+                            } else {
+                                Button {
+                                    presenter.takePhoto()
+                                } label: {
+                                    Image(systemName: "camera.circle.fill")
+                                        .font(.system(size: 30, weight: .bold))
+                                }.padding(10)
+                            }
+                            
+                        }
+                        
+                    }
+                    
+                    HStack {
+                        TextField(FormUserStrings.textFieldPlaceholderName, text: presenter.bindingName)
+                    }
+                    .textFieldStyle(OutlinedTextFieldStyle())
+                    HStack {
+                        TextField(FormUserStrings.textFieldPlaceholderLastName, text: presenter.bindingLastName)
+                    }
+                    .textFieldStyle(OutlinedTextFieldStyle())
+                    HStack {
+                        TextField(FormUserStrings.textFieldPlaceholderEmail, text: presenter.bindingEmail)
+                    }
+                    .textFieldStyle(OutlinedTextFieldStyle())
+                    HStack {
+                        TextField(FormUserStrings.textFieldPlaceholderPhone, text: presenter.bindingPhone)
+                    }
+                    .textFieldStyle(OutlinedTextFieldStyle())
+                    HStack {
+                        TextField(FormUserStrings.textFieldPlaceholderAge, text: presenter.bindingEge)
+                    }
+                    .textFieldStyle(OutlinedTextFieldStyle())
+                }
+            }
+            .padding(.bottom, 20)
+            Button {
+                presenter.saveUser()
+            } label: {
+                Text(FormUserStrings.actionButtonTitle)
+                    .frame(maxWidth: .infinity, maxHeight: 50)
+                    .foregroundStyle(.white)
+            }
+            .background(
+                RoundedRectangle(cornerRadius: 25)
+                    .fill(Color.blue)
+            )
         }
+        .padding()
+        
     }
 }

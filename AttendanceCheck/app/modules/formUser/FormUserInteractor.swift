@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 protocol FormUserInteractorProtocol {
-    func insertUser(name: String, email: String, phone: String)
+    func insertUser(name: String, email: String, phone: String, lastName: String, ege: Int)
 }
 
 class FormUserInteractor {
@@ -21,8 +21,8 @@ class FormUserInteractor {
 }
 
 extension FormUserInteractor: FormUserInteractorProtocol {
-    func insertUser(name: String, email: String, phone: String) {
-        let newUser = User(name: name, phone: phone, email: email)
+    func insertUser(name: String, email: String, phone: String, lastName: String, ege: Int) {
+        let newUser = User(name: name, phone: phone, email: email, lastName: lastName, ege: ege)
         modelContext.insert(newUser)
     }
 }

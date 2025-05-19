@@ -9,32 +9,71 @@ import SwiftUI
 import SwiftData
 
 struct ListUsersView: View {
-    
-    @State private var users: [User] = []
-    
-    let presenter: ListUserPresenter
-    
+    @Environment(\.modelContext) var modelContext
+    @ObservedObject var presenter: ListUserPresenter
+    @State var searchText = ""
     init(presenter: ListUserPresenter) {
         self.presenter = presenter
     }
     
     var body: some View {
-        VStack {
+        
+        NavigationStack {
+            
+            HStack {
+                TextField(FormUserStrings.textFieldPlaceholderName, text: $searchText)
+            }
+            .textFieldStyle(OutlinedTextFieldStyle())
+            
+            HStack {
+                Button {
+                    
+                } label: {
+                    Text(FormUserStrings.actionButtonTitle)
+                        .frame(maxHeight: 40)
+                        .foregroundStyle(.white)
+                }
+                .background(
+                    RoundedRectangle(cornerRadius: 25)
+                        .fill(Color.blue)
+                )
+            }
+            
+            if presenter.users.isEmpty {
+                Text("Nel no hay nada")
+            }
+            
             List {
-                ForEach(users) { user in
-                    Text(user.name)
+                ForEach(presenter.users) { user in
+                    NavigationLink {
+                        Text(user.name)
+                    } label: {
+                        UserItemView(user: user)
+                    }
                 }
             }
-            Button{
-                let user = User(name: "Gerardo", phone: "5529871231", email: "geraldosantillan@gmail.com")
-                presenter.saveUser(user)
-                users = presenter.getUsers()
-            } label: {
-                Text("Agregar")
+            .listStyle(GroupedListStyle())
+            .navigationTitle(Text(ListUsersStrings.navigationTitle))
+            .navigationBarTitleDisplayMode(.large)
+            .toolbar {
+                let showFormModalBinding = Binding(get: { presenter.showFormModal },
+                                                   set: { presenter.showFormModal = $0 })
+                
+                Button {
+                    presenter.showModalToggle()
+                } label: {
+                    Image(systemName: "plus")
+                        .font(.system(size: 20, weight: .bold))
+                }.sheet(isPresented: showFormModalBinding) {
+                    FormUserRouter.goToFormUser(modelContext: modelContext, delegate: presenter)
+                }
+
             }
+            
         }
         .onAppear {
-            users = presenter.getUsers()
+            presenter.reloadListUsers()
         }
+        
     }
 }

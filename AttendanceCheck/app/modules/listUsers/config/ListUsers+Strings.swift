@@ -1,0 +1,11 @@
+//
+//  ListUsers+Strings.swift
+//  AttendanceCheck
+//
+//  Created by Gerardo Santillan Cruzado on 08/05/25.
+//
+
+enum ListUsersStrings {
+    static let navigationTitle = "Usuarios"
+    static let asissteceButtonTitle = "Asistencia"
+}

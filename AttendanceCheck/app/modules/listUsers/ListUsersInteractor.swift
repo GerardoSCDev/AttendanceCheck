@@ -20,7 +20,6 @@ class ListUserInteractor {
     init(modelContext: ModelContext) {
         self.modelContext = modelContext
     }
-    
 }
 
 extension ListUserInteractor: ListUserInteractorProtocol {
@@ -29,10 +28,7 @@ extension ListUserInteractor: ListUserInteractorProtocol {
         return try modelContext.fetch(descriptor)
     }
     
-    
     func insert(user: User) {
         modelContext.insert(user)
     }
-    
-    
 }
