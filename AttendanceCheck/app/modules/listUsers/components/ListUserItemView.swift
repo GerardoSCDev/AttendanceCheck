@@ -12,9 +12,11 @@ struct UserItemView: View {
     let user: User
     
     private struct StatusCapsule: View {
+        var status: Bool
+        
         var body: some View {
             Capsule()
-                .fill(.red)
+                .fill(status ? .green : .red)
                 .frame(width: 5)
                 .padding(.leading, -15)
         }
@@ -109,7 +111,7 @@ struct UserItemView: View {
     var body: some View {
         HStack {
             
-            StatusCapsule()
+            StatusCapsule(status: user.isActive)
             
             ImageAsyncAvatar(clientEmail: user.email)
                 .padding(-10)

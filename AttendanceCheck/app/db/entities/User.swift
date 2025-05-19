@@ -17,13 +17,15 @@ class User {
     var phone: String
     var email: String
     var ege: Int
+    var isActive: Bool
     
-    init(id: UUID = .init(), name: String, phone: String, email: String, lastName: String, ege: Int) {
+    init(id: UUID = .init(), name: String, phone: String, email: String, lastName: String, ege: Int, isActive: Bool = true) {
         self.id = id
         self.name = name
         self.phone = phone
         self.email = email
         self.lastName = lastName
         self.ege = ege
+        self.isActive = isActive
     }
 }
