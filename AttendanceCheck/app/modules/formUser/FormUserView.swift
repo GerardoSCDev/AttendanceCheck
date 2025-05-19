@@ -75,14 +75,18 @@ struct FormUserView: View {
                     .textFieldStyle(OutlinedTextFieldStyle())
                     HStack {
                         TextField(FormUserStrings.textFieldPlaceholderEmail, text: presenter.bindingEmail)
+                            .keyboardType(.emailAddress)
+                            .autocapitalization(.none)
                     }
                     .textFieldStyle(OutlinedTextFieldStyle())
                     HStack {
                         TextField(FormUserStrings.textFieldPlaceholderPhone, text: presenter.bindingPhone)
+                            .keyboardType(.asciiCapableNumberPad)
                     }
                     .textFieldStyle(OutlinedTextFieldStyle())
                     HStack {
                         TextField(FormUserStrings.textFieldPlaceholderAge, text: presenter.bindingEge)
+                            .keyboardType(.asciiCapableNumberPad)
                     }
                     .textFieldStyle(OutlinedTextFieldStyle())
                 }
