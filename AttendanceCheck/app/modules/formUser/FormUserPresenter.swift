@@ -99,9 +99,9 @@ extension FormUserPresenter: FormUserPrsenterProtocol {
     
     func saveUser() {
         interactor.insertUser(name: self.name,
-                              email: self.lastName,
-                              phone: self.email,
-                              lastName: self.phone,
+                              email: self.email,
+                              phone: self.phone,
+                              lastName: self.lastName,
                               ege: Int(ege) ?? 0)
         delegate?.reloadListUsers()
         delegate?.showModalToggle()
