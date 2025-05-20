@@ -40,7 +40,13 @@ struct ListUsersView: View {
             }
             
             if presenter.users.isEmpty {
-                Text("Nel no hay nada")
+                VStack(alignment: .center) {
+                    Image("emptyUsers")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                    Text("No hay usuarios agregados")
+                        .font(.title2)
+                }
             }
             
             List {
