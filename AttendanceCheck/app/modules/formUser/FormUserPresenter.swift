@@ -103,7 +103,7 @@ extension FormUserPresenter: FormUserPrsenterProtocol {
                               phone: self.phone,
                               lastName: self.lastName,
                               ege: Int(ege) ?? 0,
-                              photo: photoImage.pngData())
+                              photo: photoImage?.pngData())
         delegate?.reloadListUsers()
         delegate?.showModalToggle()
     }
