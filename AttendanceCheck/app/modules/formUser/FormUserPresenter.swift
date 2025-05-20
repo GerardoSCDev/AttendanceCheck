@@ -13,6 +13,7 @@ protocol FormUserPrsenterProtocol {
     func saveUser()
     func takePhoto()
     func resetTakePhoto()
+    func validateField()
 }
 
 class FormUserPresenter: ObservableObject {
@@ -25,6 +26,7 @@ class FormUserPresenter: ObservableObject {
     @Published var ege: String = ""
     @Published var image: CGImage?
     @Published var photoImage: UIImage?
+    @Published var isValidateForm: Bool = false
     
     let cameraManager = CameraManager()
     
@@ -82,15 +84,34 @@ class FormUserPresenter: ObservableObject {
             }
         }
     }
+    
+    private func validateName() -> Bool {
+        return !name.isEmpty
+    }
+    private func validateLastName() -> Bool {
+        return !lastName.isEmpty
+    }
+    private func validateEmail() -> Bool {
+        return !email.isEmpty
+    }
+    private func validatePhone() -> Bool {
+        return !phone.isEmpty
+    }
+    private func validateEge() -> Bool {
+        return !ege.isEmpty
+    }
 }
 
 extension FormUserPresenter: FormUserPrsenterProtocol {
+    func validateField() {
+        isValidateForm = validateName() && validateEmail() && validatePhone() && validateLastName() && validateEge()
+    }
+    
     func resetTakePhoto()  {
         photoImage = nil
         Task {
             await cameraManager.startSession()
         }
-        
     }
     
     func takePhoto() {

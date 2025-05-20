@@ -67,26 +67,41 @@ struct FormUserView: View {
                     
                     HStack {
                         TextField(FormUserStrings.textFieldPlaceholderName, text: presenter.bindingName)
+                            .onChange(of: presenter.name) { _, _ in
+                                presenter.validateField()
+                            }
                     }
                     .textFieldStyle(OutlinedTextFieldStyle())
                     HStack {
                         TextField(FormUserStrings.textFieldPlaceholderLastName, text: presenter.bindingLastName)
+                            .onChange(of: presenter.lastName) { _, _ in
+                                presenter.validateField()
+                            }
                     }
                     .textFieldStyle(OutlinedTextFieldStyle())
                     HStack {
                         TextField(FormUserStrings.textFieldPlaceholderEmail, text: presenter.bindingEmail)
                             .keyboardType(.emailAddress)
                             .autocapitalization(.none)
+                            .onChange(of: presenter.email) { _, _ in
+                                presenter.validateField()
+                            }
                     }
                     .textFieldStyle(OutlinedTextFieldStyle())
                     HStack {
                         TextField(FormUserStrings.textFieldPlaceholderPhone, text: presenter.bindingPhone)
                             .keyboardType(.asciiCapableNumberPad)
+                            .onChange(of: presenter.phone) { _, _ in
+                                presenter.validateField()
+                            }
                     }
                     .textFieldStyle(OutlinedTextFieldStyle())
                     HStack {
                         TextField(FormUserStrings.textFieldPlaceholderAge, text: presenter.bindingEge)
                             .keyboardType(.asciiCapableNumberPad)
+                            .onChange(of: presenter.ege) { _, _ in
+                                presenter.validateField()
+                            }
                     }
                     .textFieldStyle(OutlinedTextFieldStyle())
                 }
@@ -99,9 +114,10 @@ struct FormUserView: View {
                     .frame(maxWidth: .infinity, maxHeight: 50)
                     .foregroundStyle(.white)
             }
+            .disabled(!presenter.isValidateForm)
             .background(
                 RoundedRectangle(cornerRadius: 25)
-                    .fill(Color.blue)
+                    .fill(presenter.isValidateForm ? Color.blue : Color.gray)
             )
         }
         .padding()
