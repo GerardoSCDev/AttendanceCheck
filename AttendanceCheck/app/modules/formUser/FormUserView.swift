@@ -65,45 +65,30 @@ struct FormUserView: View {
                         
                     }
                     
-                    HStack {
-                        TextField(FormUserStrings.textFieldPlaceholderName, text: presenter.bindingName)
-                            .onChange(of: presenter.name) { _, _ in
-                                presenter.validateField()
-                            }
-                    }
-                    .textFieldStyle(OutlinedTextFieldStyle())
-                    HStack {
-                        TextField(FormUserStrings.textFieldPlaceholderLastName, text: presenter.bindingLastName)
-                            .onChange(of: presenter.lastName) { _, _ in
-                                presenter.validateField()
-                            }
-                    }
-                    .textFieldStyle(OutlinedTextFieldStyle())
-                    HStack {
-                        TextField(FormUserStrings.textFieldPlaceholderEmail, text: presenter.bindingEmail)
-                            .keyboardType(.emailAddress)
-                            .autocapitalization(.none)
-                            .onChange(of: presenter.email) { _, _ in
-                                presenter.validateField()
-                            }
-                    }
-                    .textFieldStyle(OutlinedTextFieldStyle())
-                    HStack {
-                        TextField(FormUserStrings.textFieldPlaceholderPhone, text: presenter.bindingPhone)
-                            .keyboardType(.asciiCapableNumberPad)
-                            .onChange(of: presenter.phone) { _, _ in
-                                presenter.validateField()
-                            }
-                    }
-                    .textFieldStyle(OutlinedTextFieldStyle())
-                    HStack {
-                        TextField(FormUserStrings.textFieldPlaceholderAge, text: presenter.bindingEge)
-                            .keyboardType(.asciiCapableNumberPad)
-                            .onChange(of: presenter.ege) { _, _ in
-                                presenter.validateField()
-                            }
-                    }
-                    .textFieldStyle(OutlinedTextFieldStyle())
+                    AppTextField(text: presenter.bindingName,
+                                 isValidate: presenter.bindingIsValidateName,
+                                 placeHolder: FormUserStrings.textFieldPlaceholderName,
+                                 rules: [.notEmpty])
+                    
+                    AppTextField(text: presenter.bindingLastName,
+                                 isValidate: presenter.bindingIsValidateLastName,
+                                 placeHolder: FormUserStrings.textFieldPlaceholderLastName,
+                                 rules: [.notEmpty])
+                    
+                    AppTextField(text: presenter.bindingEmail,
+                                 isValidate: presenter.bindingIsValidateEmail,
+                                 placeHolder: FormUserStrings.textFieldPlaceholderEmail,
+                                 rules: [.notEmpty, .emailFormat])
+                    
+                    AppTextField(text: presenter.bindingPhone,
+                                 isValidate: presenter.bindingIsValidadePhone,
+                                 placeHolder: FormUserStrings.textFieldPlaceholderPhone,
+                                 rules: [.notEmpty, .phoneLimitDigits])
+                    
+                    AppTextField(text: presenter.bindingEge,
+                                 isValidate: presenter.bindingIsValidateEge,
+                                 placeHolder: FormUserStrings.textFieldPlaceholderAge,
+                                 rules: [.notEmpty, .limitDigits(3)])
                 }
             }
             .padding(.bottom, 20)

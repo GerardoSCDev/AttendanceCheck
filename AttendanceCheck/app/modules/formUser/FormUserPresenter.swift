@@ -20,10 +20,25 @@ class FormUserPresenter: ObservableObject {
     private var interactor: FormUserInteractor
     
     @Published var name: String = ""
+    @Published var isValidateName: Bool = false {
+        didSet { validateField() }
+    }
     @Published var lastName: String = ""
+    @Published var isValidateLastName: Bool = false {
+        didSet { validateField() }
+    }
     @Published var email: String = ""
+    @Published var isValidateEmail: Bool = false {
+        didSet { validateField() }
+    }
     @Published var phone: String = ""
+    @Published var isValidatePhone: Bool = false {
+        didSet { validateField() }
+    }
     @Published var ege: String = ""
+    @Published var isValidateEge: Bool = false {
+        didSet { validateField() }
+    }
     @Published var image: CGImage?
     @Published var photoImage: UIImage?
     @Published var isValidateForm: Bool = false
@@ -34,21 +49,41 @@ class FormUserPresenter: ObservableObject {
         .init(get: { self.name },
               set: { self.name = $0 })
     }
+    var bindingIsValidateName: Binding<Bool> {
+        .init(get: { self.isValidateName },
+              set: { self.isValidateName = $0 })
+    }
     var bindingLastName: Binding<String> {
         .init(get: { self.lastName },
               set: { self.lastName = $0 })
+    }
+    var bindingIsValidateLastName: Binding<Bool> {
+        .init(get: { self.isValidateLastName },
+              set: { self.isValidateLastName = $0 })
     }
     var bindingEmail: Binding<String> {
         .init(get: { self.email },
               set: { self.email = $0 })
     }
+    var bindingIsValidateEmail: Binding<Bool> {
+        .init(get: { self.isValidateEmail },
+              set: { self.isValidateEmail = $0 })
+    }
     var bindingPhone: Binding<String> {
         .init(get: { self.phone },
               set: { self.phone = $0 })
     }
+    var bindingIsValidadePhone: Binding<Bool> {
+        .init(get: { self.isValidatePhone },
+              set: { self.isValidatePhone = $0 })
+    }
     var bindingEge: Binding<String> {
         .init(get: { self.ege },
               set: { self.ege = $0 })
+    }
+    var bindingIsValidateEge: Binding<Bool> {
+        .init(get: { self.isValidateEge },
+              set: { self.isValidateEge = $0 })
     }
     var bindingImage: Binding<CGImage?> {
         .init(get: { self.image },
@@ -84,27 +119,11 @@ class FormUserPresenter: ObservableObject {
             }
         }
     }
-    
-    private func validateName() -> Bool {
-        return !name.isEmpty
-    }
-    private func validateLastName() -> Bool {
-        return !lastName.isEmpty
-    }
-    private func validateEmail() -> Bool {
-        return !email.isEmpty
-    }
-    private func validatePhone() -> Bool {
-        return !phone.isEmpty
-    }
-    private func validateEge() -> Bool {
-        return !ege.isEmpty
-    }
 }
 
 extension FormUserPresenter: FormUserPrsenterProtocol {
     func validateField() {
-        isValidateForm = validateName() && validateEmail() && validatePhone() && validateLastName() && validateEge()
+        isValidateForm = isValidateName && isValidateEmail && isValidatePhone && isValidateLastName && isValidateEge
     }
     
     func resetTakePhoto()  {
