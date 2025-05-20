@@ -18,8 +18,10 @@ class User {
     var email: String
     var ege: Int
     var isActive: Bool
+    @Attribute(.externalStorage)
+    var photo: Data?
     
-    init(id: UUID = .init(), name: String, phone: String, email: String, lastName: String, ege: Int, isActive: Bool = true) {
+    init(id: UUID = .init(), name: String, phone: String, email: String, lastName: String, ege: Int, isActive: Bool = true, photo: Data? = nil) {
         self.id = id
         self.name = name
         self.phone = phone
@@ -27,5 +29,6 @@ class User {
         self.lastName = lastName
         self.ege = ege
         self.isActive = isActive
+        self.photo = photo
     }
 }

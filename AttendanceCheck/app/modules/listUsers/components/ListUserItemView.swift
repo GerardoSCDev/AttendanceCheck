@@ -22,15 +22,30 @@ struct UserItemView: View {
         }
     }
     
-    private struct ImageAsyncAvatar: View {
-        @State var clientEmail: String
+    struct ImageAvatar: View {
         
-        let urlImage = "https://i.pravatar.cc/150?u="
+        var image: Data?
         
-        private struct EmptyImage: View {
+        var body: some View {
+            
+            if let image = image {
+                SuccessImage(image: image)
+            } else {
+                FailedImage()
+            }
+            
+        }
+        
+        private struct SuccessImage: View {
+            var image: Data
+            
             var body: some View {
-                ProgressView()
+                Image(uiImage: UIImage(data: image) ?? UIImage())
+                    .resizable()
+                    .scaledToFill()
                     .frame(width: 60, height: 60)
+                    .clipShape(RoundedRectangle(cornerRadius: 60))
+                    .shadow(radius: 10)
             }
         }
         
@@ -41,34 +56,6 @@ struct UserItemView: View {
                     .scaledToFit()
                     .frame(width: 60, height: 60)
                     .foregroundColor(.gray)
-            }
-        }
-        
-        private struct SuccessImage: View {
-            let image: Image
-            
-            var body: some View {
-                image
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 60, height: 60)
-                    .clipShape(RoundedRectangle(cornerRadius: 60))
-                    .shadow(radius: 10)
-            }
-        }
-        
-        var body: some View {
-            AsyncImage(url: URL(string: "\(urlImage)\(clientEmail)")) { phases in
-                switch phases {
-                case .empty:
-                    EmptyImage()
-                case .success(let image):
-                    SuccessImage(image: image)
-                case .failure:
-                    FailedImage()
-                @unknown default:
-                        EmptyView()
-                }
             }
         }
     }
@@ -113,7 +100,7 @@ struct UserItemView: View {
             
             StatusCapsule(status: user.isActive)
             
-            ImageAsyncAvatar(clientEmail: user.email)
+            ImageAvatar(image: user.photo)
                 .padding(-10)
             
             VStack(alignment: .leading) {
