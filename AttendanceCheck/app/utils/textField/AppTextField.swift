@@ -43,11 +43,11 @@ struct AppTextField: View {
                 case .emailFormat:
                     let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
                     let predicate = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-                    if !predicate.evaluate(with: value) { return false }
+                    return (!predicate.evaluate(with: value))
                 case .phoneLimitDigits:
-                    if value.count != 9 { return false }
+                    return (value.count != 10)
                 case .limitDigits(let limit):
-                    if value.count > limit { return false }
+                    return (value.count > limit)
                 }
             }
         }
