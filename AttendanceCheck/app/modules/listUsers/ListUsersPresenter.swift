@@ -17,6 +17,11 @@ class ListUserPresenter: ObservableObject {
     @Published var users: [User] = []
     @Published var showFormModal: Bool = false
     
+    var bindingShowFormModal: Binding<Bool> {
+        .init(get: { self.showFormModal },
+              set: { self.showFormModal = $0 })
+    }
+    
     var interactor: ListUserInteractorProtocol
     
     init(interactor: ListUserInteractor) {
