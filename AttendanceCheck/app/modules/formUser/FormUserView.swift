@@ -78,17 +78,21 @@ struct FormUserView: View {
                     AppTextField(text: presenter.bindingEmail,
                                  isValidate: presenter.bindingIsValidateEmail,
                                  placeHolder: FormUserStrings.textFieldPlaceholderEmail,
-                                 rules: [.notEmpty, .emailFormat])
+                                 rules: [.notEmpty, .emailFormat],
+                                 keyBoardType: .emailAddress,
+                                 autocapitalization: UITextAutocapitalizationType.none)
                     
                     AppTextField(text: presenter.bindingPhone,
                                  isValidate: presenter.bindingIsValidadePhone,
                                  placeHolder: FormUserStrings.textFieldPlaceholderPhone,
-                                 rules: [.notEmpty, .phoneLimitDigits])
+                                 rules: [.notEmpty, .phoneLimitDigits],
+                                 keyBoardType: .asciiCapableNumberPad)
                     
                     AppTextField(text: presenter.bindingEge,
                                  isValidate: presenter.bindingIsValidateEge,
                                  placeHolder: FormUserStrings.textFieldPlaceholderAge,
-                                 rules: [.notEmpty, .limitDigits(3)])
+                                 rules: [.notEmpty, .limitDigits(3)],
+                                 keyBoardType: .asciiCapableNumberPad)
                 }
             }
             .padding(.bottom, 20)
