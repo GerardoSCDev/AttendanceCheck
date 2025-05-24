@@ -28,10 +28,13 @@ struct ListUsersView: View {
                         .font(.title2)
                 }
             } else {
-                HStack {
-                    TextField(FormUserStrings.textFieldPlaceholderName, text: $searchText)
+                
+                AppTextField(text: presenter.bindingSearchUsers,
+                             isValidate: .constant(true),
+                             icon: Image(systemName: "person.crop.badge.magnifyingglass"),
+                             placeHolder: ListUsersStrings.searchUserPlaceholder) { _, _ in
+                    presenter.findUsersByName(name: presenter.searchUsers)
                 }
-                .textFieldStyle(OutlinedTextFieldStyle())
                 
                 HStack {
                     Button {

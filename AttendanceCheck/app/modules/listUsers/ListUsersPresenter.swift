@@ -11,15 +11,27 @@ import SwiftUI
 protocol ListUserPrsenterProtocol {
     func reloadListUsers()
     func showModalToggle()
+    func findUsersByName(name: String)
 }
 
 class ListUserPresenter: ObservableObject {
     @Published var users: [User] = []
     @Published var showFormModal: Bool = false
+    @Published var searchUsers: String = "" {
+        didSet {
+            findUsersByName(name: searchUsers)
+        }
+    }
+    
+    private var allUsers: [User] = []
     
     var bindingShowFormModal: Binding<Bool> {
         .init(get: { self.showFormModal },
               set: { self.showFormModal = $0 })
+    }
+    var bindingSearchUsers: Binding<String> {
+        .init(get: { self.searchUsers },
+              set: { self.searchUsers = $0 })
     }
     
     var interactor: ListUserInteractorProtocol
@@ -31,13 +43,23 @@ class ListUserPresenter: ObservableObject {
 }
 
 extension ListUserPresenter: ListUserPrsenterProtocol {
+    func findUsersByName(name: String) {
+        if name.isEmpty {
+            users = allUsers
+        } else {
+            users = allUsers.filter { $0.name.localizedCaseInsensitiveContains(name) }
+        }
+    }
+    
     func showModalToggle() {
         showFormModal.toggle()
     }
     
     func reloadListUsers() {
         do {
-            users = try interactor.fetchAll()
+            let fetchedUsers = try interactor.fetchAll()
+            allUsers = fetchedUsers
+            users = fetchedUsers
         } catch {
             print("Error al obtener usuarios: \(error)")
         }

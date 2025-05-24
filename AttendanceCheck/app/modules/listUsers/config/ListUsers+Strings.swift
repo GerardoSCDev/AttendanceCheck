@@ -8,4 +8,5 @@
 enum ListUsersStrings {
     static let navigationTitle = "Usuarios"
     static let asissteceButtonTitle = "Asistencia"
+    static let searchUserPlaceholder = "Buscar usuario"
 }

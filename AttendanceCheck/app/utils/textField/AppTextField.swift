@@ -17,6 +17,7 @@ struct AppTextField: View {
     var rules: [AppTextFieldRules]?
     var keyBoardType: UIKeyboardType?
     var autocapitalization: UITextAutocapitalizationType?
+    var onChangeHandeler: ((String, String) -> Void)?
     
     var body: some View {
         HStack {
@@ -27,7 +28,13 @@ struct AppTextField: View {
                     if !hasInteracted {
                         hasInteracted = true
                     }
+                    
                     isValidate = validateText(newValue)
+                    
+                    if let onChangeHandeler = onChangeHandeler {
+                        onChangeHandeler(oldValue, newValue)
+                    }
+                    
                 }
         }
         .textFieldStyle(OutlinedTextFieldStyle(icon: icon,
