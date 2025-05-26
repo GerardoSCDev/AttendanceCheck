@@ -24,7 +24,7 @@ struct ListUsersView: View {
                     Image("emptyUsers")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                    Text("No hay usuarios agregados")
+                    Text(ListUsersStrings.emptyUsersListTitle)
                         .font(.title2)
                 }
             } else {
@@ -58,7 +58,7 @@ struct ListUsersView: View {
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 250, height: 250)
-                        Text("No se encontraron resultados")
+                        Text(ListUsersStrings.noResultsUsersListTitle)
                             .font(.title2)
                     }
                 } else {
