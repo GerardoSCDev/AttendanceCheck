@@ -35,20 +35,13 @@ struct ListUsersView: View {
                              placeHolder: ListUsersStrings.searchUserPlaceholder) { _, _ in
                     presenter.findUsersByName(name: presenter.searchUsers)
                 }
-                
-                HStack {
-                    Button {
-                        
-                    } label: {
-                        Text(FormUserStrings.actionButtonTitle)
-                            .frame(maxHeight: 40)
-                            .foregroundStyle(.white)
+                ScrollView(.horizontal) {
+                    HStack {
+                        AppFilterOptionButton(title: "Asistencias 999", selected: false)
+                        AppFilterOptionButton(title: "Inasistencia", selected: true)
                     }
-                    .background(
-                        RoundedRectangle(cornerRadius: 25)
-                            .fill(Color.blue)
-                    )
                 }
+                .padding(.top, 15)
             }
             
             List {
