@@ -52,7 +52,12 @@ extension ListUserPresenter: ListUserPrsenterProtocol {
         if name.isEmpty {
             users = allUsers
         } else {
-            users = allUsers.filter { $0.name.localizedCaseInsensitiveContains(name) }
+            users = allUsers.filter {
+                $0.name.localizedCaseInsensitiveContains(name) ||
+                $0.lastName.localizedCaseInsensitiveContains(name) ||
+                $0.email.localizedCaseInsensitiveContains(name) ||
+                $0.phone.localizedCaseInsensitiveContains(name)
+            }
         }
     }
     
