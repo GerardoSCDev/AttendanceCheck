@@ -19,7 +19,7 @@ struct ListUsersView: View {
     var body: some View {
         
         NavigationStack {
-            if presenter.users.isEmpty {
+            if presenter.allUsersIsEmpty() {
                 VStack(alignment: .center) {
                     Image("emptyUsers")
                         .resizable()
@@ -52,11 +52,22 @@ struct ListUsersView: View {
             }
             
             List {
-                ForEach(presenter.users) { user in
-                    NavigationLink {
-                        Text(user.name)
-                    } label: {
-                        UserItemView(user: user)
+                if presenter.users.isEmpty {
+                    VStack(alignment: .center) {
+                        Image("emptyUsers")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 250, height: 250)
+                        Text("No se encontraron resultados")
+                            .font(.title2)
+                    }
+                } else {
+                    ForEach(presenter.users) { user in
+                        NavigationLink {
+                            Text(user.name)
+                        } label: {
+                            UserItemView(user: user)
+                        }
                     }
                 }
             }

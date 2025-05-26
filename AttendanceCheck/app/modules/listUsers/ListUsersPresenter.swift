@@ -12,6 +12,7 @@ protocol ListUserPrsenterProtocol {
     func reloadListUsers()
     func showModalToggle()
     func findUsersByName(name: String)
+    func allUsersIsEmpty() -> Bool
 }
 
 class ListUserPresenter: ObservableObject {
@@ -43,6 +44,10 @@ class ListUserPresenter: ObservableObject {
 }
 
 extension ListUserPresenter: ListUserPrsenterProtocol {
+    func allUsersIsEmpty() -> Bool {
+        return allUsers.isEmpty
+    }
+    
     func findUsersByName(name: String) {
         if name.isEmpty {
             users = allUsers
