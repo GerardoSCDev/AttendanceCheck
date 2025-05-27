@@ -24,7 +24,7 @@ struct AppFilterOptionButton: View {
         }
         .background(
             RoundedRectangle(cornerRadius: 25)
-                .fill(.blue.opacity(selected ?? true ? 1 : 0.3))
+                .fill(.blue.opacity(selected ?? true ? 1 : 0.2))
         )
     }
 }
