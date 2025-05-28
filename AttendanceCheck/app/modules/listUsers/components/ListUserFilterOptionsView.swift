@@ -21,11 +21,11 @@ struct OptionsFilterOptionButton: Identifiable {
 struct ListUserFilterOptionsView: View {
     
     @State var options: [OptionsFilterOptionButton] = [
-        .init(title: "Todos", selected: true, type: .all),
-        .init(title: "Asistencia", selected: false, type: .attendance),
-        .init(title: "Inasistencia", selected: false, type: .noAttendance),
-        .init(title: "Activo", selected: false, type: .active),
-        .init(title: "Inactivo", selected: false, type: .inactive)
+        .init(title: ListUsersStrings.filterOptionAll, selected: true, type: .all),
+        .init(title: ListUsersStrings.filterOptionAttendance, selected: false, type: .attendance),
+        .init(title: ListUsersStrings.filterOptionNoAttendance, selected: false, type: .noAttendance),
+        .init(title: ListUsersStrings.filterOptionActive, selected: false, type: .active),
+        .init(title: ListUsersStrings.filterOptionInactive, selected: false, type: .inactive)
     ]
     
     var onChangeSelection: ((OptionsFilterOptionButton.TypeOption) -> Void)?
@@ -37,13 +37,15 @@ struct ListUserFilterOptionsView: View {
     }
     
     var body: some View {
-        ScrollView(.horizontal) {
-            HStack {
-                ForEach(options.indices, id: \.self) { index in
-                    AppFilterOptionButton(title: options[index].title, selected: options[index].selected) {
-                        unselectAllOptions()
-                        options[index].selected = true
-                        onChangeSelection?(options[index].type)
+        HStack {
+            ScrollView(.horizontal) {
+                HStack {
+                    ForEach(options.indices, id: \.self) { index in
+                        AppFilterOptionButton(title: options[index].title, selected: options[index].selected) {
+                            unselectAllOptions()
+                            options[index].selected = true
+                            onChangeSelection?(options[index].type)
+                        }
                     }
                 }
             }

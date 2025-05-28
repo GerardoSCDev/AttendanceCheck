@@ -11,4 +11,10 @@ enum ListUsersStrings {
     static let searchUserPlaceholder = "Nombre, apellido, correo o telefono"
     static let emptyUsersListTitle = "No hay usuarios registrados"
     static let noResultsUsersListTitle = "No se encontraron usuarios"
+    static let filterOptionAll = "Todos"
+    static let filterOptionAttendance = "Asistencia"
+    static let filterOptionNoAttendance = "Inasistencia"
+    static let filterOptionActive = "Activo"
+    static let filterOptionInactive = "Inactivo"
+    
 }
