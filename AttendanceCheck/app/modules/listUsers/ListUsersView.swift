@@ -35,13 +35,10 @@ struct ListUsersView: View {
                              placeHolder: ListUsersStrings.searchUserPlaceholder) { _, _ in
                     presenter.findUsersByName(name: presenter.searchUsers)
                 }
-                ScrollView(.horizontal) {
-                    HStack {
-                        AppFilterOptionButton(title: "Asistencias 999", selected: false)
-                        AppFilterOptionButton(title: "Inasistencia", selected: true)
-                    }
+                
+                ListUserFilterOptionsView() { typeSelected in
+                    presenter.findUsersByFilterOption(type: typeSelected)
                 }
-                .padding(.top, 15)
             }
             
             List {

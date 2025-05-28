@@ -10,11 +10,12 @@ import SwiftUI
 struct AppFilterOptionButton: View {
     
     let title: String
-    let selected: Bool?
+    var selected: Bool?
+    var didSelect: (() -> ())? = nil
     
     var body: some View {
         Button {
-            
+            didSelect?()
         } label: {
             Text(title)
                 .frame(height: 40)

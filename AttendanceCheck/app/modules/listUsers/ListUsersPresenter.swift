@@ -13,6 +13,7 @@ protocol ListUserPrsenterProtocol {
     func showModalToggle()
     func findUsersByName(name: String)
     func allUsersIsEmpty() -> Bool
+    func findUsersByFilterOption(type: OptionsFilterOptionButton.TypeOption)
 }
 
 class ListUserPresenter: ObservableObject {
@@ -23,6 +24,7 @@ class ListUserPresenter: ObservableObject {
             findUsersByName(name: searchUsers)
         }
     }
+    @Published var typeOptionSelected: OptionsFilterOptionButton.TypeOption = .all
     
     private var allUsers: [User] = []
     
@@ -34,6 +36,10 @@ class ListUserPresenter: ObservableObject {
         .init(get: { self.searchUsers },
               set: { self.searchUsers = $0 })
     }
+    var bindingTypeOptionSelected: Binding<OptionsFilterOptionButton.TypeOption> {
+        .init(get: { self.typeOptionSelected },
+              set: { self.typeOptionSelected = $0 })
+    }
     
     var interactor: ListUserInteractorProtocol
     
@@ -44,6 +50,22 @@ class ListUserPresenter: ObservableObject {
 }
 
 extension ListUserPresenter: ListUserPrsenterProtocol {
+    func findUsersByFilterOption(type: OptionsFilterOptionButton.TypeOption) {
+        searchUsers = ""
+        switch type {
+        case .all:
+            users = allUsers
+        case .active:
+            users = allUsers.filter { $0.isActive }
+        case .inactive:
+            users = allUsers.filter { !$0.isActive }
+        case .attendance:
+            users = allUsers
+        case .noAttendance:
+            users = allUsers
+        }
+    }
+    
     func allUsersIsEmpty() -> Bool {
         return allUsers.isEmpty
     }
