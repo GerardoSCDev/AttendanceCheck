@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SwiftData
 
 struct ListUsersView: View {
     @Environment(\.modelContext) var modelContext
