@@ -36,9 +36,15 @@ struct ListUsersView: View {
                     presenter.findUsersByName(name: presenter.searchUsers)
                 }
                 
-                ListUserFilterOptionsView() { typeSelected in
-                    presenter.findUsersByFilterOption(type: typeSelected)
+                HStack {
+                    ListUserFilterOptionsView() { typeSelected in
+                        presenter.findUsersByFilterOption(type: typeSelected)
+                    }
+                    AppDatePickerButton() { newDate in
+                        presenter.findUsersByDate(date: newDate)
+                    }
                 }
+                .padding(.top, 15)
             }
             
             List {

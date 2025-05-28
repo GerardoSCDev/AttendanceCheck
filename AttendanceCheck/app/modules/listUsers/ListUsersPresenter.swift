@@ -14,6 +14,7 @@ protocol ListUserPrsenterProtocol {
     func findUsersByName(name: String)
     func allUsersIsEmpty() -> Bool
     func findUsersByFilterOption(type: OptionsFilterOptionButton.TypeOption)
+    func findUsersByDate(date: Date)
 }
 
 class ListUserPresenter: ObservableObject {
@@ -50,6 +51,10 @@ class ListUserPresenter: ObservableObject {
 }
 
 extension ListUserPresenter: ListUserPrsenterProtocol {
+    func findUsersByDate(date: Date) {
+        // TODO: fetch to BD 
+    }
+    
     func findUsersByFilterOption(type: OptionsFilterOptionButton.TypeOption) {
         searchUsers = ""
         switch type {

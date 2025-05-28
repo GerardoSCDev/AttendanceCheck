@@ -37,19 +37,16 @@ struct ListUserFilterOptionsView: View {
     }
     
     var body: some View {
-        HStack {
-            ScrollView(.horizontal) {
-                HStack {
-                    ForEach(options.indices, id: \.self) { index in
-                        AppFilterOptionButton(title: options[index].title, selected: options[index].selected) {
-                            unselectAllOptions()
-                            options[index].selected = true
-                            onChangeSelection?(options[index].type)
-                        }
+        ScrollView(.horizontal) {
+            HStack {
+                ForEach(options.indices, id: \.self) { index in
+                    AppFilterOptionButton(title: options[index].title, selected: options[index].selected) {
+                        unselectAllOptions()
+                        options[index].selected = true
+                        onChangeSelection?(options[index].type)
                     }
                 }
             }
         }
-        .padding(.top, 15)
     }
 }
