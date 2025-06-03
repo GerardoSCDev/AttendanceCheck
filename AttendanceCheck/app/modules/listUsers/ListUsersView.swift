@@ -74,15 +74,30 @@ struct ListUsersView: View {
             )
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
-                Button {
-                    presenter.showModalToggle()
-                } label: {
-                    Image(systemName: "plus")
-                        .font(.system(size: 20, weight: .bold))
-                }.sheet(isPresented: presenter.bindingShowFormModal) {
-                    FormUserRouter.goToFormUser(modelContext: modelContext, delegate: presenter)
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Menu {
+                        
+                    } label: {
+                        Text("Grupo: 2do.B")
+                    }
                 }
-
+                
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Menu {
+                        Button("Nuevo Usuario") {
+                            presenter.showModalToggle()
+                        }
+                        Button("Nuevo Grupo") {
+                            presenter.showModalToggle()
+                        }
+                    } label: {
+                        Image(systemName: "plus")
+                            .font(.system(size: 20, weight: .bold))
+                    }
+                }
+            }
+            .sheet(isPresented: presenter.bindingShowFormModal) {
+                FormUserRouter.goToFormUser(modelContext: modelContext, delegate: presenter)
             }
             
         }
