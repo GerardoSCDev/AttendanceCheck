@@ -47,7 +47,7 @@ struct ListUsersView: View {
             }
             
             List {
-                if presenter.users.isEmpty {
+                if  !presenter.allUsersIsEmpty() && presenter.findUsersIsEmptyResult() {
                     VStack(alignment: .center) {
                         Image("emptyUsers")
                             .resizable()
@@ -57,7 +57,7 @@ struct ListUsersView: View {
                             .font(.title2)
                     }
                 } else {
-                    ForEach(presenter.users) { user in
+                    ForEach(presenter.getUsersResult()) { user in
                         NavigationLink {
                             Text(user.name)
                         } label: {
@@ -68,7 +68,7 @@ struct ListUsersView: View {
             }
             .listStyle(GroupedListStyle())
             .navigationTitle(
-                presenter.users.isEmpty ?
+                presenter.findUsersIsEmptyResult() ?
                     Text("") :
                     Text(ListUsersStrings.navigationTitle)
             )

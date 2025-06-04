@@ -13,8 +13,10 @@ protocol ListUserPrsenterProtocol {
     func showModalToggle()
     func findUsersByName(name: String)
     func allUsersIsEmpty() -> Bool
+    func findUsersIsEmptyResult() -> Bool
     func findUsersByFilterOption(type: OptionsFilterOptionButton.TypeOption)
     func findUsersByDate(date: Date)
+    func getUsersResult() -> [User]
 }
 
 class ListUserPresenter: ObservableObject {
@@ -51,6 +53,14 @@ class ListUserPresenter: ObservableObject {
 }
 
 extension ListUserPresenter: ListUserPrsenterProtocol {
+    func getUsersResult() -> [User] {
+        return users
+    }
+    
+    func findUsersIsEmptyResult() -> Bool {
+        return users.isEmpty
+    }
+    
     func findUsersByDate(date: Date) {
         // TODO: fetch to BD 
     }
