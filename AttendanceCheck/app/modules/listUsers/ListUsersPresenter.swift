@@ -9,6 +9,8 @@ import SwiftData
 import SwiftUI
 
 protocol ListUserPrsenterProtocol {
+    func loadListGroup()
+    func listGroupIsEmpty() -> Bool
     func reloadListUsers()
     func showModalToggle()
     func findUsersByName(name: String)
@@ -17,9 +19,11 @@ protocol ListUserPrsenterProtocol {
     func findUsersByFilterOption(type: OptionsFilterOptionButton.TypeOption)
     func findUsersByDate(date: Date)
     func getUsersResult() -> [User]
+    func getGroupResult() -> [Groups]
 }
 
 class ListUserPresenter: ObservableObject {
+    @Published var groups: [Groups] = []
     @Published var users: [User] = []
     @Published var showFormModal: Bool = false
     @Published var searchUsers: String = "" {
@@ -53,6 +57,23 @@ class ListUserPresenter: ObservableObject {
 }
 
 extension ListUserPresenter: ListUserPrsenterProtocol {
+    func getGroupResult() -> [Groups] {
+        return groups
+    }
+    
+    func listGroupIsEmpty() -> Bool {
+        return groups.isEmpty
+    }
+    
+    func loadListGroup() {
+        do {
+            let fetchGroups = try interactor.fetchAllGroups()
+            groups = fetchGroups
+        } catch {
+            print("Error al obtener usuarios: \(error)")
+        }
+    }
+    
     func getUsersResult() -> [User] {
         return users
     }

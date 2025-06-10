@@ -11,6 +11,7 @@ import SwiftUI
 protocol ListUserInteractorProtocol {
     func insert(user: User)
     func fetchAllUsers() throws -> [User]
+    func fetchAllGroups() throws -> [Groups]
 }
 
 class ListUserInteractor {
@@ -23,6 +24,11 @@ class ListUserInteractor {
 }
 
 extension ListUserInteractor: ListUserInteractorProtocol {
+    func fetchAllGroups() throws -> [Groups] {
+        let descriptor = FetchDescriptor<Groups>()
+        return try modelContext.fetch(descriptor)
+    }
+    
     func fetchAllUsers() throws -> [User] {
         let descriptor = FetchDescriptor<User>()
         return try modelContext.fetch(descriptor)

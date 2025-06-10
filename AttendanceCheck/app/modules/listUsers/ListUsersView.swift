@@ -74,13 +74,18 @@ struct ListUsersView: View {
             )
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Menu {
-                        
-                    } label: {
-                        Text("Grupo: 2do.B")
+                if !presenter.listGroupIsEmpty() {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Menu {
+                            ForEach(presenter.getGroupResult()) { group in
+                                Button(group.name) {}
+                            }
+                        } label: {
+                            Text( "Grupo")
+                        }
                     }
                 }
+                
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Menu {

@@ -21,7 +21,9 @@ class User {
     @Attribute(.externalStorage)
     var photo: Data?
     
-    init(id: UUID = .init(), name: String, phone: String, email: String, lastName: String, ege: Int, isActive: Bool = true, photo: Data? = nil) {
+    @Relationship var groups: [Groups]
+    
+    init(id: UUID = .init(), name: String, phone: String, email: String, lastName: String, ege: Int, isActive: Bool = true, photo: Data? = nil, groups: [Groups] = []) {
         self.id = id
         self.name = name
         self.phone = phone
@@ -30,5 +32,6 @@ class User {
         self.ege = ege
         self.isActive = isActive
         self.photo = photo
+        self.groups = groups
     }
 }
