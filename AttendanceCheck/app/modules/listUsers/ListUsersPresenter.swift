@@ -104,7 +104,7 @@ extension ListUserPresenter: ListUserPrsenterProtocol {
     
     func reloadListUsers() {
         do {
-            let fetchedUsers = try interactor.fetchAll()
+            let fetchedUsers = try interactor.fetchAllUsers()
             allUsers = fetchedUsers
             users = fetchedUsers
         } catch {
