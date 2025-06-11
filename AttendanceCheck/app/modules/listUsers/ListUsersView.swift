@@ -93,7 +93,7 @@ struct ListUsersView: View {
                             presenter.showModalToggle()
                         }
                         Button("Nuevo Grupo") {
-                            presenter.showModalToggle()
+                            presenter.showModalFormGroupToggle()
                         }
                     } label: {
                         Image(systemName: "plus")
@@ -104,10 +104,14 @@ struct ListUsersView: View {
             .sheet(isPresented: presenter.bindingShowFormModal) {
                 FormUserRouter.goToFormUser(modelContext: modelContext, delegate: presenter)
             }
+            .sheet(isPresented: presenter.bindingShowFormGrupoModal) {
+                FormGroupRouter.goToFormGroup(modelContext: modelContext, delegate: presenter)
+            }
             
         }
         .onAppear {
             presenter.reloadListUsers()
+            presenter.loadListGroup()
         }
         
     }

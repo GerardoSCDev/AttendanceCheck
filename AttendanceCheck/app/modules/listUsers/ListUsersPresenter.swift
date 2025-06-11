@@ -13,6 +13,7 @@ protocol ListUserPrsenterProtocol {
     func listGroupIsEmpty() -> Bool
     func reloadListUsers()
     func showModalToggle()
+    func showModalFormGroupToggle()
     func findUsersByName(name: String)
     func allUsersIsEmpty() -> Bool
     func findUsersIsEmptyResult() -> Bool
@@ -26,6 +27,7 @@ class ListUserPresenter: ObservableObject {
     @Published var groups: [Groups] = []
     @Published var users: [User] = []
     @Published var showFormModal: Bool = false
+    @Published var showFormGroupModal: Bool = false
     @Published var searchUsers: String = "" {
         didSet {
             findUsersByName(name: searchUsers)
@@ -38,6 +40,10 @@ class ListUserPresenter: ObservableObject {
     var bindingShowFormModal: Binding<Bool> {
         .init(get: { self.showFormModal },
               set: { self.showFormModal = $0 })
+    }
+    var bindingShowFormGrupoModal: Binding<Bool> {
+        .init(get: { self.showFormGroupModal },
+              set: { self.showFormGroupModal = $0 })
     }
     var bindingSearchUsers: Binding<String> {
         .init(get: { self.searchUsers },
@@ -121,6 +127,10 @@ extension ListUserPresenter: ListUserPrsenterProtocol {
     
     func showModalToggle() {
         showFormModal.toggle()
+    }
+    
+    func showModalFormGroupToggle() {
+        showFormGroupModal.toggle()
     }
     
     func reloadListUsers() {
