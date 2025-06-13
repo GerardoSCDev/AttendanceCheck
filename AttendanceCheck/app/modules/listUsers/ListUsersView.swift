@@ -78,10 +78,12 @@ struct ListUsersView: View {
                     ToolbarItem(placement: .navigationBarLeading) {
                         Menu {
                             ForEach(presenter.getGroupResult()) { group in
-                                Button(group.name) {}
+                                Button(group.name) {
+                                    presenter.setCurrentGroup(group: group)
+                                }
                             }
                         } label: {
-                            Text( "Grupo")
+                            Text(presenter.groupSelected?.name ?? "Grupo")
                         }
                     }
                 }

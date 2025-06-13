@@ -21,9 +21,11 @@ protocol ListUserPrsenterProtocol {
     func findUsersByDate(date: Date)
     func getUsersResult() -> [User]
     func getGroupResult() -> [Groups]
+    func setCurrentGroup(group: Groups)
 }
 
 class ListUserPresenter: ObservableObject {
+    @Published var groupSelected: Groups?
     @Published var groups: [Groups] = []
     @Published var users: [User] = []
     @Published var showFormModal: Bool = false
@@ -63,6 +65,10 @@ class ListUserPresenter: ObservableObject {
 }
 
 extension ListUserPresenter: ListUserPrsenterProtocol {
+    func setCurrentGroup(group: Groups) {
+        groupSelected = group
+    }
+    
     func getGroupResult() -> [Groups] {
         return groups
     }
@@ -75,6 +81,12 @@ extension ListUserPresenter: ListUserPrsenterProtocol {
         do {
             let fetchGroups = try interactor.fetchAllGroups()
             groups = fetchGroups
+            if let currentGroup = groupSelected {
+                groupSelected = currentGroup
+            } else {
+                groupSelected = fetchGroups.first
+            }
+            
         } catch {
             print("Error al obtener usuarios: \(error)")
         }
