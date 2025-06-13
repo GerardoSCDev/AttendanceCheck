@@ -16,5 +16,7 @@ enum ListUsersStrings {
     static let filterOptionNoAttendance = "Inasistencia"
     static let filterOptionActive = "Activo"
     static let filterOptionInactive = "Inactivo"
-    
+    static let menuButtonNewGroupTitle = "Nuevo grupo"
+    static let menuButtonNewUserTitle = "Nuevo usuario"
+    static let menuOptionalGroupTitle = "Grupos"
 }

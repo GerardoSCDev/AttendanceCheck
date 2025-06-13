@@ -83,7 +83,8 @@ struct ListUsersView: View {
                                 }
                             }
                         } label: {
-                            Text(presenter.groupSelected?.name ?? "Grupo")
+                            Text(presenter.groupSelected?.name ??
+                                 ListUsersStrings.menuOptionalGroupTitle)
                         }
                     }
                 }
@@ -91,10 +92,10 @@ struct ListUsersView: View {
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Menu {
-                        Button("Nuevo Usuario") {
+                        Button(ListUsersStrings.menuButtonNewUserTitle) {
                             presenter.showModalToggle()
                         }
-                        Button("Nuevo Grupo") {
+                        Button(ListUsersStrings.menuButtonNewGroupTitle) {
                             presenter.showModalFormGroupToggle()
                         }
                     } label: {
