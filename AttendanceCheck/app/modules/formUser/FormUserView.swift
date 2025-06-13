@@ -17,7 +17,7 @@ struct FormUserView: View {
     
     var body: some View {
         VStack {
-            Text("Formulario usuario")
+            Text(FormUserStrings.formUserTitle)
                 .font(.title2)
                 .padding()
             ScrollView {

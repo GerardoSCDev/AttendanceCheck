@@ -13,4 +13,5 @@ enum FormUserStrings {
     static let textFieldPlaceholderPhone = "Teléfono"
     static let textFieldPlaceholderAge = "Edad"
     static let actionButtonTitle = "Guardar"
+    static let formUserTitle = "Formulario usuario"
 }
