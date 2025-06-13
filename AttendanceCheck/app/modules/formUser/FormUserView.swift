@@ -17,9 +17,6 @@ struct FormUserView: View {
     
     var body: some View {
         VStack {
-            Capsule()
-                .frame(width: 100, height: 4)
-                .foregroundStyle(.white)
             Text("Formulario usuario")
                 .font(.title2)
                 .padding()
@@ -110,6 +107,7 @@ struct FormUserView: View {
             )
         }
         .padding()
+        .presentationDragIndicator(.visible)
         
     }
 }
