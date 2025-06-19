@@ -30,7 +30,7 @@ struct ListUsersView: View {
                 
                 AppTextField(text: presenter.bindingSearchUsers,
                              isValidate: .constant(true),
-                             icon: Image(systemName: "person.crop.badge.magnifyingglass"),
+                             leadingIcon: Image(systemName: "person.crop.badge.magnifyingglass"),
                              placeHolder: ListUsersStrings.searchUserPlaceholder) { _, _ in
                     presenter.findUsersByName(name: presenter.searchUsers)
                 }

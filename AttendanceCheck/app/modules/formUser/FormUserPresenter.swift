@@ -39,6 +39,7 @@ class FormUserPresenter: ObservableObject {
     @Published var isValidateEge: Bool = false {
         didSet { validateField() }
     }
+    @Published var groupSelected: String = ""
     @Published var image: CGImage?
     @Published var photoImage: UIImage?
     @Published var isValidateForm: Bool = false
@@ -92,6 +93,10 @@ class FormUserPresenter: ObservableObject {
     var bindingPhotoImage: Binding<UIImage?> {
         .init(get: { self.photoImage },
               set: { self.photoImage = $0 })
+    }
+    var bindingGroupSelected: Binding<String> {
+        .init(get: { self.groupSelected },
+              set: { self.groupSelected = $0 })
     }
     
     var delegate: ListUserPrsenterProtocol?

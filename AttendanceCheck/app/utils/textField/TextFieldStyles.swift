@@ -8,16 +8,21 @@
 import SwiftUI
 
 struct OutlinedTextFieldStyle: TextFieldStyle {
-    var icon: Image?
+    var leadingIcon: Image?
+    var trailingIcon: Image?
     var showRedRectangle: Bool = false
     
     func _body(configuration: TextField<Self._Label>) -> some View {
         HStack {
-            if let icon = icon {
+            if let icon = leadingIcon {
                 icon
                     .foregroundColor(Color(UIColor.systemGray4))
             }
             configuration
+            if let icon = trailingIcon {
+                icon
+                    .foregroundColor(Color(UIColor.systemGray4))
+            }
         }
         .padding()
         .overlay {

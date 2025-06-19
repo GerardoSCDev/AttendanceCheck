@@ -12,7 +12,8 @@ struct AppTextField: View {
     @Binding var text: String
     @Binding var isValidate: Bool
     @State private var hasInteracted: Bool = false
-    var icon: Image?
+    var leadingIcon: Image?
+    var trailingIcon: Image?
     var placeHolder: String?
     var rules: [AppTextFieldRules]?
     var keyBoardType: UIKeyboardType?
@@ -37,7 +38,8 @@ struct AppTextField: View {
                     
                 }
         }
-        .textFieldStyle(OutlinedTextFieldStyle(icon: icon,
+        .textFieldStyle(OutlinedTextFieldStyle(leadingIcon: leadingIcon,
+                                               trailingIcon: trailingIcon,
                                                showRedRectangle: hasInteracted && !isValidate))
     }
     
