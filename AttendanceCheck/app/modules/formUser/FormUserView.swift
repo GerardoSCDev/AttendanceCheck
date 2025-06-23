@@ -90,6 +90,14 @@ struct FormUserView: View {
                                  placeHolder: FormUserStrings.textFieldPlaceholderAge,
                                  rules: [.notEmpty, .limitDigits(3)],
                                  keyBoardType: .asciiCapableNumberPad)
+                    
+                    AppComboBoxField(selected: presenter.bindingGroupSelected,
+                                     isValidate: presenter.bindingIsValidateGroupSelected,
+                                     options: [Groups(name: "1roD")],
+                                     placeHolder: "Selecciona un grupo",
+                                     displayText: {$0.name},
+                                     enableEmptyOption: true,
+                                     rules: [.noEmptySelection])
                 }
             }
             .padding(.bottom, 20)

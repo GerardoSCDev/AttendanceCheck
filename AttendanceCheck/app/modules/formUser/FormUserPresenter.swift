@@ -39,7 +39,10 @@ class FormUserPresenter: ObservableObject {
     @Published var isValidateEge: Bool = false {
         didSet { validateField() }
     }
-    @Published var groupSelected: String = ""
+    @Published var groupSelected: Groups?
+    @Published var isValidateGroupSelected: Bool = false {
+        didSet { validateField() }
+    }
     @Published var image: CGImage?
     @Published var photoImage: UIImage?
     @Published var isValidateForm: Bool = false
@@ -94,9 +97,13 @@ class FormUserPresenter: ObservableObject {
         .init(get: { self.photoImage },
               set: { self.photoImage = $0 })
     }
-    var bindingGroupSelected: Binding<String> {
+    var bindingGroupSelected: Binding<Groups?> {
         .init(get: { self.groupSelected },
               set: { self.groupSelected = $0 })
+    }
+    var bindingIsValidateGroupSelected: Binding<Bool> {
+        .init(get: { self.isValidateGroupSelected },
+              set: { self.isValidateGroupSelected = $0 })
     }
     
     var delegate: ListUserPrsenterProtocol?
@@ -128,7 +135,7 @@ class FormUserPresenter: ObservableObject {
 
 extension FormUserPresenter: FormUserPrsenterProtocol {
     func validateField() {
-        isValidateForm = isValidateName && isValidateEmail && isValidatePhone && isValidateLastName && isValidateEge
+        isValidateForm = isValidateName && isValidateEmail && isValidatePhone && isValidateLastName && isValidateEge && isValidateGroupSelected
     }
     
     func resetTakePhoto()  {

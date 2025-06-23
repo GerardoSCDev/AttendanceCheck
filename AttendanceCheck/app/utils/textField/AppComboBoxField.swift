@@ -10,11 +10,13 @@ import SwiftUI
 struct AppComboBoxField<T: Identifiable & Equatable>: View {
     @State private var isExpandedBottomSheet = false
     @Binding var selected: T?
-    @Binding var options: [T]
+    @Binding var isValidate: Bool
     
+    var options: [T]
     var placeHolder: String
     var displayText: (T) -> String
     var enableEmptyOption: Bool?
+    var rules: [AppComboBoxFieldRules]?
     
     var body: some View {
         VStack {
@@ -24,6 +26,9 @@ struct AppComboBoxField<T: Identifiable & Equatable>: View {
                 HStack {
                     Text(selected.map(displayText) ?? placeHolder)
                         .foregroundColor(selected == nil ? .gray : .primary)
+                        .onChange(of: selected) { oldValue, newValue in
+                            isValidate = validateText()
+                        }
                     Spacer()
                     Image(systemName: "chevron.down")
                         .foregroundColor(.gray)
@@ -31,7 +36,7 @@ struct AppComboBoxField<T: Identifiable & Equatable>: View {
                 .padding()
                 .overlay(
                     RoundedRectangle(cornerRadius: 8)
-                        .stroke(Color.gray.opacity(0.6), lineWidth: 1)
+                        .stroke(getRoundedRectangleColor(), lineWidth: 1)
                 )
             }
         }
@@ -39,15 +44,20 @@ struct AppComboBoxField<T: Identifiable & Equatable>: View {
             VStack {
                 Text(placeHolder)
                     .font(.headline)
-                Button(action: {
-                    selected = nil
-                    isExpandedBottomSheet = false
-                }) {
-                    Text("Selecciona una opción")
+                if let _ = enableEmptyOption {
+                    Button(action: {
+                        selected = nil
+                        isValidate = validateText()
+                        isExpandedBottomSheet = false
+                    }) {
+                        Text("Ninguno")
+                    }
                 }
+                
                 List(options) { item in
                     Button(action: {
                         selected = item
+                        isValidate = validateText()
                         isExpandedBottomSheet = false
                     }) {
                         Text(displayText(item))
@@ -57,4 +67,29 @@ struct AppComboBoxField<T: Identifiable & Equatable>: View {
             .presentationDetents([.fraction(0.25)])
         }
     }
+    
+    private func getRoundedRectangleColor() -> Color {
+        guard let _ = rules else {
+            return Color.gray.opacity(0.6)
+        }
+        return isValidate ? Color.gray.opacity(0.6) : Color.red
+    }
+    
+    private func validateText() -> Bool {
+        if let rules = rules {
+            for rule in rules {
+                switch rule {
+                case .noEmptySelection:
+                    guard let _ = selected else {
+                        return false
+                    }
+                }
+            }
+        }
+        return true
+    }
+}
+
+enum AppComboBoxFieldRules {
+    case noEmptySelection
 }
