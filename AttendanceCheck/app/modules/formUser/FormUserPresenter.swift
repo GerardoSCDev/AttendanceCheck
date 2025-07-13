@@ -14,6 +14,7 @@ protocol FormUserPrsenterProtocol {
     func takePhoto()
     func resetTakePhoto()
     func validateField()
+    func loadListGroup()
 }
 
 class FormUserPresenter: ObservableObject {
@@ -46,7 +47,7 @@ class FormUserPresenter: ObservableObject {
     @Published var image: CGImage?
     @Published var photoImage: UIImage?
     @Published var isValidateForm: Bool = false
-    
+    @Published var groups: [Groups] = []
     let cameraManager = CameraManager()
     
     var bindingName: Binding<String> {
@@ -158,6 +159,21 @@ extension FormUserPresenter: FormUserPrsenterProtocol {
                               photo: photoImage?.pngData())
         delegate?.reloadListUsers()
         delegate?.showModalToggle()
+    }
+    
+    func loadListGroup() {
+        do {
+            let fetchGroups = try interactor.fetchAllGroups()
+            groups = fetchGroups
+            if let currentGroup = groupSelected {
+                groupSelected = currentGroup
+            } else {
+                groupSelected = fetchGroups.first
+            }
+            
+        } catch {
+            print("Error al obtener usuarios: \(error)")
+        }
     }
 }
 

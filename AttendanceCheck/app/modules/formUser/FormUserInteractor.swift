@@ -10,6 +10,7 @@ import SwiftData
 
 protocol FormUserInteractorProtocol {
     func insertUser(name: String, email: String, phone: String, lastName: String, ege: Int, photo: Data?)
+    func fetchAllGroups() throws -> [Groups]
 }
 
 class FormUserInteractor {
@@ -21,6 +22,12 @@ class FormUserInteractor {
 }
 
 extension FormUserInteractor: FormUserInteractorProtocol {
+    
+    func fetchAllGroups() throws -> [Groups] {
+        let descriptor = FetchDescriptor<Groups>()
+        return try modelContext.fetch(descriptor)
+    }
+    
     func insertUser(name: String, email: String, phone: String, lastName: String, ege: Int, photo: Data?) {
         let newUser = User(name: name, phone: phone, email: email, lastName: lastName, ege: ege, photo: photo)
         modelContext.insert(newUser)

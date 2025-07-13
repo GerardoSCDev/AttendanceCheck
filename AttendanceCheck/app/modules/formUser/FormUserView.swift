@@ -93,7 +93,7 @@ struct FormUserView: View {
                     
                     AppComboBoxField(selected: presenter.bindingGroupSelected,
                                      isValidate: presenter.bindingIsValidateGroupSelected,
-                                     options: [Groups(name: "1roD")],
+                                     options: presenter.groups,
                                      placeHolder: "Selecciona un grupo",
                                      displayText: {$0.name},
                                      enableEmptyOption: true,
@@ -116,6 +116,9 @@ struct FormUserView: View {
         }
         .padding()
         .presentationDragIndicator(.visible)
+        .onAppear {
+            presenter.loadListGroup()
+        }
         
     }
 }
